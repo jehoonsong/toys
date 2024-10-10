@@ -3,9 +3,9 @@
 DAEMON_NAME="dvcsync"
 LOGFILE="/content/.config/dvcsync.log"
 PIDFILE="/var/run/${DAEMON_NAME}.pid"
-MONITORING_PATH="/dvcstore/"
-RSYNC_SOURCE="/dvcstore/"
-RSYNC_TARGET="/dvcdrive/"
+MONITORING_PATH="/opt/dvcstore/"
+RSYNC_SOURCE="/opt/dvcstore/"
+RSYNC_TARGET="/content/dvcdrive/"
 
 mkdir -p /content/.config
 

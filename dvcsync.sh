@@ -16,7 +16,7 @@ start() {
     fi
     echo "Starting $DAEMON_NAME..."
     # initial sync
-    rsync -avz $RSYNC_SOURCE $RSYNC_TARGET 2>&1 | tee -a $LOGFILE
+    # rsync -avz $RSYNC_SOURCE $RSYNC_TARGET >& /dev/null
     nohup inotifywait -m -r $MONITORING_PATH -e modify -e create -e delete | \
     while read path action file; do
         echo "Event detected: $action on $file"

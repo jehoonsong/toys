@@ -4,4 +4,4 @@
 ['remote "local"']
     url = /opt/dvcstore/b379f3fe5ae9bdf7e7767480d65f9284b9835c59
 ['remote "remote"']
-    url = /drive/MyDrive/CL_PROJ/dvcstore/b379f3fe5ae9bdf7e7767480d65f9284b9835c59
+    url = /opt/dvcstore_remote/b379f3fe5ae9bdf7e7767480d65f9284b9835c59

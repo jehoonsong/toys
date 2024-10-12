@@ -1,0 +1,5 @@
+outs:
+- md5: 0239315daebd896d43dd7a45740f9267
+  size: 104857600
+  hash: md5
+  path: random_file_100mb-1.bin

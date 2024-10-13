@@ -7,6 +7,7 @@ MONITORING_PATH="/opt/dvcstore/"
 RSYNC_SOURCE="/opt/dvcstore/"
 RSYNC_TARGET="/content/dvcstore/"
 SYNC_INTERVAL=5
+NEW_VARIABLE="example_value"
 
 mkdir -p /content/.config
 

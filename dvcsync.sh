@@ -10,26 +10,33 @@ SYNC_INTERVAL=5
 
 mkdir -p /content/.config
 
-start() {
-    if [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE); then
+function is_running() {
+    [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE) &> /dev/null
+}
+
+function sync_files() {
+    rsync -avz $RSYNC_SOURCE $RSYNC_TARGET
+}
+
+function start() {
+    if is_running; then
         echo "$DAEMON_NAME is already running"
         exit 0
     fi
     echo "Starting $DAEMON_NAME..."
-    # initial sync
-    rsync -avz $RSYNC_SOURCE $RSYNC_TARGET >& /dev/null
+    sync_files
     nohup inotifywait -m -r $MONITORING_PATH -e modify -e create -e delete | \
     while read path action file; do
         echo "Event detected: $action on $file"
         sleep $SYNC_INTERVAL
-        rsync -avz $RSYNC_SOURCE $RSYNC_TARGET
+        sync_files
     done > $LOGFILE 2>&1 &
     echo $! > $PIDFILE
     echo "$DAEMON_NAME started"
 }
 
-stop() {
-    if [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE); then
+function stop() {
+    if is_running; then
         echo "Stopping $DAEMON_NAME..."
         kill -9 $(cat $PIDFILE)
         rm -f $PIDFILE
@@ -39,8 +46,8 @@ stop() {
     fi
 }
 
-status() {
-    if [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE); then
+function status() {
+    if is_running; then
         echo "$DAEMON_NAME is running"
     else
         echo "$DAEMON_NAME is not running"

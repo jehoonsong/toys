@@ -6,6 +6,7 @@ PIDFILE="/var/run/${DAEMON_NAME}.pid"
 MONITORING_PATH="/opt/dvcstore/"
 RSYNC_SOURCE="/opt/dvcstore/"
 RSYNC_TARGET="/content/dvcstore/"
+SYNC_INTERVAL=5
 
 mkdir -p /content/.config
 
@@ -20,7 +21,7 @@ start() {
     nohup inotifywait -m -r $MONITORING_PATH -e modify -e create -e delete | \
     while read path action file; do
         echo "Event detected: $action on $file"
-        sleep 5
+        sleep $SYNC_INTERVAL
         rsync -avz $RSYNC_SOURCE $RSYNC_TARGET
     done > $LOGFILE 2>&1 &
     echo $! > $PIDFILE

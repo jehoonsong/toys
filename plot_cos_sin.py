@@ -11,6 +11,7 @@ def plot_cos_plus_sin():
     plt.xlabel('t')
     plt.ylabel('cos(t) + sin(t)')
     plt.grid(True)
+    plt.savefig('cos_plus_sin_plot.png')
     plt.show()
 
 if __name__ == "__main__":
